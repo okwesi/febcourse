@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ACCI Febraury Course</title>
+    <meta name="author" content="David Grzyb">
+    <meta name="description" content="">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.datatables.net/1.11.6/css/jquery.dataTables.min.css" rel="stylesheet">
+    <script src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.min.js"></script>
+
+    <style>
+        .body-bg {}
+    </style>
+</head>
+
+<body class="body-bg min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0 flex justify-center "
+    style="font-family:'Lato',sans-serif;">
+    <!-- Container -->
+    <div class="w-11/12">
+    
+
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table id="attendees-table"
+                class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <caption
+                    class="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
+                    Febraury Course Attendees
+                    <p class="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">
+                        <button type="button"
+                            class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                            <a href="{% url 'create_person' %}">Add attendee</a>
+                        </button>
+                        <button type="button"
+                            class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            <a href="{% url 'download_excel' %}" download>Download List in Excel</a>
+                        </button>
+                        <button id="openModal"
+                            class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                            Clear Data
+                        </button>
+                    </p>
+                </caption>
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+
+                        <th scope="col" class="px-6 py-3">First Name</th>
+                        <th scope="col" class="px-6 py-3">Last Name</th>
+                        <th scope="col" class="px-6 py-3">Tag Number</th>
+                        <th scope="col" class="px-6 py-3">Telephone</th>
+                        <th scope="col" class="px-6 py-3">Area</th>
+                        <th scope="col" class="px-6 py-3">District</th>
+                        <th scope="col" class="px-6 py-3">Local Assembly</th>
+                        <th scope="col" class="px-6 py-3">Position</th>
+                        <th scope="col" class="px-6 py-3">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for attendee in attendees %}
+
+                    <tr
+                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{ attendee.first_name }}
+                        </th>
+                        <td class="px-6 py-4">
+                            {{ attendee.last_name }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ attendee.tag_number }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ attendee.telephone }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ attendee.area }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ attendee.district }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ attendee.local_assembly }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ attendee.position }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ attendee.amount }}
+                        </td>
+
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div id="confirmationModal" class="fixed inset-0 z-50 overflow-auto hidden">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="bg-white p-8 w-96 rounded-lg shadow-lg">
+                <p class="text-gray-600 mb-6">Are you sure you want to clear the Data?</p>
+
+                <!-- Confirm button -->
+                <form method="post" action="{% url 'clear_database' %}">
+                    {% csrf_token %}
+                    <button type="submit"
+                        class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline-red">
+                        Confirm
+                    </button>
+                </form>
+
+                <!-- Cancel button -->
+                <button id="closeModal"
+                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline-gray">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#attendees-table').DataTable();
+        });
+    </script>
+
+    <script>
+        // JavaScript to handle modal
+        const openModalButton = document.getElementById('openModal');
+        const closeModalButton = document.getElementById('closeModal');
+        const modal = document.getElementById('confirmationModal');
+
+        openModalButton.addEventListener('click', () => {
+            modal.classList.remove('hidden');
+        });
+
+        closeModalButton.addEventListener('click', () => {
+            modal.classList.add('hidden');
+        });
+    </script>
+
+</body>
+
+</html>

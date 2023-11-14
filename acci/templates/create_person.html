@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ACCI Febraury Course</title>
+    <meta name="author" content="David Grzyb">
+    <meta name="description" content="">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .body-bg {}
+    </style>
+</head>
+
+<body class="body-bg min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0" style="font-family:'Lato',sans-serif;">
+
+    <div class="flex justify-center items-center">
+        <!-- Container -->
+        <div class="w-5/6 bg-white p-8 rounded-lg shadow-lg">
+            <button type="button"
+                class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                <a href="{% url 'all_attendees' %}">See List of Attendees</a>
+            </button>
+            <form method="post" action="{% url 'create_person' %}">
+                {% csrf_token %}
+                <div class="space-y-4">
+                    <div class="border-b border-gray-900/10 pb-12">
+                        <h2 class="text-base font-semibold leading-7 text-gray-900">Personal Information</h2>
+
+                        <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                            <div class="sm:col-span-3">
+                                <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">First
+                                    name</label>
+                                <div class="mt-2">
+                                    <input type="text" name="first_name" id="first-name" autocomplete="off" required
+                                        class="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                </div>
+                            </div>
+
+                            <div class="sm:col-span-3">
+                                <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">Last
+                                    name</label>
+                                <div class="mt-2">
+                                    <input type="text" name="last_name" id="last-name" autocomplete="off" required
+                                        class="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                </div>
+                            </div>
+
+                            <div class="sm:col-span-3">
+                                <label for="tag-number" class="block text-sm font-medium leading-6 text-gray-900">Tag
+                                    Number</label>
+                                <div class="mt-2">
+                                    <input type="text" name="tag_number" id="tag-number" autocomplete="off" required
+                                        class="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                </div>
+                            </div>
+
+                            <div class="sm:col-span-3">
+                                <label for="telephone"
+                                    class="block text-sm font-medium leading-6 text-gray-900">Telephone Number</label>
+                                <div class="mt-2">
+                                    <input type="text" name="telephone" id="telephone" autocomplete="off" required
+                                        class="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                </div>
+                            </div>
+
+                            <div class="sm:col-span-3">
+                                <label for="area" class="block text-sm font-medium leading-6 text-gray-900">Area</label>
+                                <div class="mt-2">
+                                    <select id="area" name="area" required
+                                        class="block  px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                                        <option value="" selected disabled>Select an Area</option>
+                                        <option value="Sunyani">Sunyani Area</option>
+                                        <option value="Kintampo">Kintampo Area</option>
+                                        <option value="Berekum">Bereku Area</option>
+                                        <option value="Techiman">Techiman Area</option>
+                                        <option value="Ejisu">Ejisu Area</option>
+                                        <option value="Eibiani">Bibiani Area</option>
+                                        <option value="Mampong">Mampong Area</option>
+                                        <option value="Koforidua">Koforidua Area</option>
+                                        <option value="Akim-oda">Akim Oda Area</option>
+                                        <option value="Madina">Madina Area</option>
+                                        <option value="Kumasi">Kumasi Area</option>
+                                        <option value="Takoradi">Takoradi Area</option>
+                                        <option value="Kasoa-agona-swedru">Kasoa/Agona Swedru Area</option>
+                                        <option value="Wassa-akropong">Wassa Akropong Area</option>
+                                        <option value="Labour">Labour Area</option>
+                                        <option value="Barrier">Barrier Area</option>
+                                        <option value="Mpatasie">Mpatasie Area</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="sm:col-span-3">
+                                <label for="district"
+                                    class="block text-sm font-medium leading-6 text-gray-900">District</label>
+                                <div class="mt-2">
+                                    <select id="district" name="district" required
+                                        class="block px-2  w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                                        <!-- district options will be populated using JavaScript -->
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="sm:col-span-6">
+                                <label for="local-assembly"
+                                    class="block text-sm font-medium leading-6 text-gray-900">Local Assembly</label>
+                                <div class="mt-2">
+                                    <input type="text" name="local_assembly" id="local-assembly" autocomplete="off" required
+                                        class="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                </div>
+                            </div>
+
+                            <div class="sm:col-span-3">
+                                <label for="position"
+                                    class="block text-sm font-medium leading-6 text-gray-900">Position</label>
+                                <select id="position" name="position" required
+                                    class="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                    <option value="Elder">Elder</option>
+                                    <option value="Deacon">Deacon</option>
+                                    <option value="Usher">Usher</option>
+                                    <option value="Singer">Singer</option>
+                                    <option value="Pastor">Pastor</option>
+                                    <option value="Junior Pastor">Junior Pastor</option>
+
+                                </select>
+                            </div>
+
+                            <div class="sm:col-span-3">
+                                <label for="amount"
+                                    class="block text-sm font-medium leading-6 text-gray-900">Amount</label>
+                                <div class="mt-2">
+                                    <input type="number" name="amount" id="amount" autocomplete="off" required
+                                        class="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                </div>
+                            </div>
+
+                            <!-- Rest of the form fields here -->
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex items-center justify-end gap-x-6">
+                    <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
+                    <button type="submit"
+                        class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+<script>
+    // JavaScript to populate the cities dropdown based on the selected area
+    const areaDropdown = document.getElementById("area");
+    const districtDropdown = document.getElementById("district");
+
+    // Define cities for each area
+    const districtOptions = {
+        "Sunyani": ["Sunyani District 'A'", "Sunyani District 'B'", "Duayaw Nkwanta District", "Bechem District", "Mim District", "Goaso District"],
+        "Kintampo": ["Kintampo District", "Magazine District", "Jema District", "Nkoranza District", "Tamale District"],
+        "Berekum": ["Berekum District", "Dormaa Ahenkro District", "Wamfie District", "Suma Ahenkro District"],
+        "Techiman": ["Techiman District", "Aworowa District", "Wenchi District", "Sampa District"],
+        "Ejisu": ["Ejisu District", "Odumase District", "Agogo District"],
+        "Bibiani": ["Bibiani District", "Bonsu Nkwanta District", "Juaboso District", "Essam District", "Patabuoso District"],
+        "Mampong": ["Mampong District", "Atebubu District"],
+        "Koforidua": ["Koforidua District", "Osino District"],
+        "Akim-oda": ["Oda District", "Nsawam District"],
+        "Madina": ["Madina District", "Labadi District", "Ashaiman District", "Tema District"],
+        "Kumasi": ["Kumasi District", "Obuasi District", "Konongo District", "Mampong District", "Nkawkaw District", "Asamankese District", "Ejura District", "Suhum District", "Bekwai District", "Mpraeso District", "Offinso District"],
+        "Takoradi": ["Takoradi District", "Elubo District", "Half Assini District", "Anyinasie District"],
+        "Kasoa-agona-swedru": ["Agona Swedru District", "Kasoa District", "Cape Coast District"],
+        "Wassa-akropong": ["Wassa Akropong District", "Tarkwa District", "Enchi District"],
+        "Labour": ["Labour District", "Chirapatre District", "Mamponteng District"],
+        "Barrier": ["Barrier District", "Achimota District", "Dansoman District"],
+        "Mpatasie": ["Mpatasie Dsitrict", "Abuakwa District"]
+    };
+
+    // Event listener to update district options based on the selected area
+    areaDropdown.addEventListener("change", function () {
+        const selectedarea = this.value;
+        const cities = districtOptions[selectedarea] || [];
+
+        // Clear the current options in the district dropdown
+        districtDropdown.innerHTML = "";
+
+        // Populate the district dropdown with the new options
+        cities.forEach(district => {
+            const option = document.createElement("option");
+            option.text = district;
+            option.value = district;
+            districtDropdown.add(option);
+        });
+    });
+
+    // Trigger the change event to initialize the district dropdown
+    areaDropdown.dispatchEvent(new Event("change"));
+</script>
+
+</html>

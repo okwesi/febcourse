@@ -1,0 +1,44 @@
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <title>Hello, world!</title>
+</head>
+
+<body class="d-flex align-items-center">
+    <div class="mx-auto mt-5 p-3 text-center"
+        style="width: 600px; box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
+        <h1>Success!</h1>
+        <img src="https://cdn.dribbble.com/users/2726709/screenshots/6522118/untitled-1.gif" alt="Success" width="200">
+        <p>You have been successfully added.</p>
+        <button type="button" id="goBackButton" class="btn btn-primary rounded-pill px-5">Go Back</button>
+    </div>
+
+    <script>
+        // Function to redirect to the create_person.html page after a delay (e.g., 5 seconds)
+        function redirectToCreatePerson() {
+            window.location.href = "{% url 'create_person' %}"; // Use the named URL pattern
+        }
+
+        // Add a click event listener to the "Go Back" button
+        document.getElementById("goBackButton").addEventListener("click", function () {
+            redirectToCreatePerson();
+        });
+
+        // Automatically redirect after 5 seconds
+        setTimeout(redirectToCreatePerson, 2000); // 5000 milliseconds (5 seconds)
+    </script>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
