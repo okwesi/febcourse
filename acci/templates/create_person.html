@@ -11,13 +11,81 @@
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+        crossorigin="anonymous"></script>
     <style>
-        .body-bg {}
+        @import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .hero-nav {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
+            min-height: 80px;
+            background-image: url(https://accihq.org/wp-content/uploads/2022/12/genCouncilSlide.jpg);
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+
+            .hero-nav__inner {
+                z-index: 1;
+            }
+
+            h2 {
+                color: #efefef;
+                font-size: 4vw;
+            }
+
+            &:before {
+                content: "";
+                background: rgba(#000, 0);
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                transition: background 400ms;
+            }
+
+            &.fixme {
+                &:before {
+                    background: rgba(#000, 0.8);
+                }
+            }
+        }
+
+        .page-content {
+            width: 30em;
+            margin: 0 auto;
+            line-height: 1.625;
+        }
     </style>
 </head>
 
-<body class="body-bg min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0" style="font-family:'Lato',sans-serif;">
+<!-- https://ibb.co/NYYBJ2P -->
 
+<body class="body-bg min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0" style="font-family:'Lato',sans-serif;">
+    <div class="hero-nav">
+        <div class="hero-nav__inner">
+            <h2>Welcome To ACCI Febraury Course</h2>
+            <div class="hero-nav__button">
+                <a href="#" class="btn"></a>
+            </div>
+        </div>
+    </div>
     <div class="flex justify-center items-center">
         <!-- Container -->
         <div class="w-5/6 bg-white p-8 rounded-lg shadow-lg">
@@ -111,7 +179,8 @@
                                 <label for="local-assembly"
                                     class="block text-sm font-medium leading-6 text-gray-900">Local Assembly</label>
                                 <div class="mt-2">
-                                    <input type="text" name="local_assembly" id="local-assembly" autocomplete="off" required
+                                    <input type="text" name="local_assembly" id="local-assembly" autocomplete="off"
+                                        required
                                         class="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                 </div>
                             </div>
@@ -163,6 +232,21 @@
 </body>
 
 <script>
+
+    var hero = $('.hero-nav'),
+        heroHeight = $('.hero-nav').outerHeight(true);
+    $(hero).parent().css('padding-top', heroHeight);
+    $(window).scroll(function () {
+        var scrollOffset = $(window).scrollTop();
+        if (scrollOffset < heroHeight) {
+            $(hero).css('height', (heroHeight - scrollOffset));
+        }
+        if (scrollOffset > (heroHeight - 215)) {
+            hero.addClass('fixme');
+        } else {
+            hero.removeClass('fixme');
+        };
+    });
     // JavaScript to populate the cities dropdown based on the selected area
     const areaDropdown = document.getElementById("area");
     const districtDropdown = document.getElementById("district");
@@ -209,5 +293,6 @@
     // Trigger the change event to initialize the district dropdown
     areaDropdown.dispatchEvent(new Event("change"));
 </script>
+
 
 </html>
