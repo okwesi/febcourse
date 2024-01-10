@@ -72,7 +72,7 @@
                                 <label for="area" class="block text-sm font-medium leading-6 text-gray-900">Area</label>
                                 <div class="mt-2">
                                     <select id="area" name="area" required
-                                        class="block  px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                                        class="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                         <option value="" selected disabled>Select an Area</option>
                                         <option value="Sunyani">Sunyani Area</option>
                                         <option value="Kintampo">Kintampo Area</option>
@@ -91,6 +91,7 @@
                                         <option value="Labour">Labour Area</option>
                                         <option value="Barrier">Barrier Area</option>
                                         <option value="Mpatasie">Mpatasie Area</option>
+                                        <option value="Foreign">Foreign Branches</option>
                                     </select>
                                 </div>
                             </div>
@@ -100,7 +101,7 @@
                                     class="block text-sm font-medium leading-6 text-gray-900">District</label>
                                 <div class="mt-2">
                                     <select id="district" name="district" required
-                                        class="block px-2  w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                                        class="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                         <!-- district options will be populated using JavaScript -->
                                     </select>
                                 </div>
@@ -120,13 +121,19 @@
                                     class="block text-sm font-medium leading-6 text-gray-900">Position</label>
                                 <select id="position" name="position" required
                                     class="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                    <option value="" selected disabled>Select Position</option>
+                                    <option value="Pastor">Pastor</option>
+                                    <option value="Pastor's Wife">Pastor's Wife</option>
+                                    <option value="Junior Pastor">Junior Pastor</option>
+                                    <option value="Youth Leader">Youth Leader</option>
+                                    <option value="Prophet">Prophet</option>
+                                    <option value="Prophetess">Prophetess</option>
                                     <option value="Elder">Elder</option>
                                     <option value="Deacon">Deacon</option>
+                                    <option value="Deaconess">Deaconess</option>
                                     <option value="Usher">Usher</option>
                                     <option value="Singer">Singer</option>
-                                    <option value="Pastor">Pastor</option>
-                                    <option value="Junior Pastor">Junior Pastor</option>
-
+                                    <option value="Member">Member</option>
                                 </select>
                             </div>
 
@@ -178,7 +185,8 @@
         "Wassa-akropong": ["Wassa Akropong District", "Tarkwa District", "Enchi District"],
         "Labour": ["Labour District", "Chirapatre District", "Mamponteng District"],
         "Barrier": ["Barrier District", "Achimota District", "Dansoman District"],
-        "Mpatasie": ["Mpatasie Dsitrict", "Abuakwa District"]
+        "Mpatasie": ["Mpatasie Dsitrict", "Abuakwa District"],
+        "Foreign": ["North America Presbytry", "European Presbytry", "UK Presbytry", "French Presbytry"]
     };
 
     // Event listener to update district options based on the selected area
