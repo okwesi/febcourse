@@ -88,14 +88,6 @@
     class="body-bg min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0"
     style="font-family: 'Lato', sans-serif"
   >
-    <div class="hero-nav">
-      <div class="hero-nav__inner">
-        <h2>Welcome To ACCI Febraury Course</h2>
-        <div class="hero-nav__button">
-          <a href="#" class="btn"></a>
-        </div>
-      </div>
-    </div>
     <div class="flex justify-center items-center">
       <!-- Container -->
       <div class="w-5/6 bg-white p-8 rounded-lg shadow-lg">
@@ -105,7 +97,10 @@
         >
           <a href="{% url 'all_attendees' %}">See List of Attendees</a>
         </button>
-        <form method="post" action="{% url 'create_person' %}">
+        <form
+          method="post"
+          action="{% url 'edit_attendee' attendee_id=attendee.id %}"
+        >
           {% csrf_token %}
           <div class="space-y-4">
             <div class="border-b border-gray-900/10 pb-12">
@@ -129,6 +124,7 @@
                       id="first-name"
                       autocomplete="off"
                       required
+                      value="{{ attendee.first_name }}"
                       class="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -147,6 +143,7 @@
                       id="last-name"
                       autocomplete="off"
                       required
+                      value="{{ attendee.last_name }}"
                       class="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -165,6 +162,7 @@
                       id="tag-number"
                       autocomplete="off"
                       required
+                      value="{{ attendee.tag_number }}"
                       class="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -183,6 +181,7 @@
                       id="telephone"
                       autocomplete="off"
                       required
+                      value="{{ attendee.telephone }}"
                       class="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -201,7 +200,10 @@
                       required
                       class="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     >
-                      <option value="" selected disabled>Select an Area</option>
+                      <option value="{{ attendee.area }}" selected>
+                        {{ attendee.area }}
+                      </option>
+                      <!-- <option value="" selected disabled>Select an Area</option> -->
                       <option value="Sunyani">Sunyani Area</option>
                       <option value="Kintampo">Kintampo Area</option>
                       <option value="Berekum">Berekum Area</option>
@@ -241,7 +243,9 @@
                       required
                       class="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     >
-                      <!-- district options will be populated using JavaScript -->
+                        <option value="{{ attendee.district }}" selected>
+                            {{ attendee.district }}
+                        </option>
                     </select>
                   </div>
                 </div>
@@ -259,6 +263,7 @@
                       id="local-assembly"
                       autocomplete="off"
                       required
+                      value="{{ attendee.local_assembly }}"
                       class="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -276,7 +281,9 @@
                     required
                     class="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   >
-                    <option value="" selected disabled>Select Position</option>
+                    <option value={{attendee.position}} selected>
+                      {{ attendee.position }}
+                    </option>
                     <option value="Pastor">Pastor</option>
                     <option value="Pastor's Wife">Pastor's Wife</option>
                     <option value="Junior Pastor">Junior Pastor</option>
@@ -305,7 +312,8 @@
                       id="amount"
                       autocomplete="off"
                       required
-                      class="block px-2 w-full rounded-md border-0 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      value="{{ attendee.amount }}"
+                      class="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
                 </div>
@@ -335,20 +343,6 @@
   </body>
 
   <script>
-    var hero = $(".hero-nav"),
-      heroHeight = $(".hero-nav").outerHeight(true);
-    $(hero).parent().css("padding-top", heroHeight);
-    $(window).scroll(function () {
-      var scrollOffset = $(window).scrollTop();
-      if (scrollOffset < heroHeight) {
-        $(hero).css("height", heroHeight - scrollOffset);
-      }
-      if (scrollOffset > heroHeight - 215) {
-        hero.addClass("fixme");
-      } else {
-        hero.removeClass("fixme");
-      }
-    });
     // JavaScript to populate the cities dropdown based on the selected area
     const areaDropdown = document.getElementById("area");
     const districtDropdown = document.getElementById("district");
@@ -431,21 +425,21 @@
       ],
     };
 
-    // Event listener to update district options based on the selected area
-    areaDropdown.addEventListener("change", function () {
-      const selectedarea = this.value;
-      const cities = districtOptions[selectedarea] || [];
+       // Event listener to update district options based on the selected area
+       areaDropdown.addEventListener("change", function () {
+        const selectedarea = this.value;
+        const cities = districtOptions[selectedarea] || [];
 
-      // Clear the current options in the district dropdown
-      districtDropdown.innerHTML = "";
+        // Clear the current options in the district dropdown
+        districtDropdown.innerHTML = "";
 
-      // Populate the district dropdown with the new options
-      cities.forEach((district) => {
-        const option = document.createElement("option");
-        option.text = district;
-        option.value = district;
-        districtDropdown.add(option);
-      });
+        // Populate the district dropdown with the new options
+        cities.forEach(district => {
+            const option = document.createElement("option");
+            option.text = district;
+            option.value = district;
+            districtDropdown.add(option);
+        });
     });
 
     // Trigger the change event to initialize the district dropdown

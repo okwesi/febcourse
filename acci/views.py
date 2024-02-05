@@ -1,22 +1,18 @@
-from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Attendee
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 import pandas as pd
 from django import forms
+from django.urls import reverse
+from django.http import JsonResponse
 
 
 
-class AttendeeForm(forms.Form):
-    first_name = forms.CharField(label='First Name', max_length=100)
-    last_name = forms.CharField(label='Last Name', max_length=100)
-    tag_number = forms.CharField(label='Tag Number', max_length=20)
-    telephone = forms.CharField(label='Telephone Number', max_length=15)
-    area = forms.CharField(label='Area', max_length=100)
-    district = forms.CharField(label='District', max_length=100)
-    local_assembly = forms.CharField(label='Local Assembly', max_length=100)
-    position = forms.CharField(label='Position', max_length=100)
-    amount = forms.DecimalField(label='Amount', max_digits=10, decimal_places=2)
-
+class AttendeeForm(forms.ModelForm):
+    class Meta:
+        model = Attendee
+        fields = '__all__'
 
 
 def create_person(request):
@@ -47,11 +43,10 @@ def create_person(request):
 def success_page(request):
     return render(request, 'success.html')
 
-
 def all_attendees(request):
     attendees = Attendee.objects.all()
-    return render(request, 'person_list.html', {'attendees': attendees})
-
+    total_attendees = attendees.count()  
+    return render(request, 'person_list.html', {'attendees': attendees, 'total_attendees': total_attendees})
 
 def clear_database(request):
     if request.method == 'POST':
@@ -61,6 +56,28 @@ def clear_database(request):
     return render(request, 'person_list.html')
 
 
+def edit_attendee(request, attendee_id):
+    attendee = get_object_or_404(Attendee, pk=attendee_id)
+
+    if request.method == 'POST':
+        form = AttendeeForm(request.POST, instance=attendee)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('all_attendees'))
+    else:
+        form = AttendeeForm(instance=attendee)
+
+    return render(request, 'edit_attendee.html', {'form': form, 'attendee': attendee})
+
+
+@csrf_exempt
+def delete_attendee(request, attendee_id):
+    if request.method == 'POST':
+        attendee = get_object_or_404(Attendee, pk=attendee_id)
+        attendee.delete()
+        return JsonResponse({'success': True})
+    
+    
 
 def download_excel(request):
     # Get all attendees from the database
